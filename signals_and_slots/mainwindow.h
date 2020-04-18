@@ -13,6 +13,9 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
+private:
+    void initComoboBox();
+
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
