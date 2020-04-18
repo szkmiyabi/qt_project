@@ -21,8 +21,12 @@ MainWindow::~MainWindow()
 //Webページの読み込み関数の実装
 void MainWindow::loadUrl()
 {
+    //QUrlはhttp://などを省略してもいけるため
     QUrl url = QUrl(ui->address->text());
-    url.setScheme("http");
+    //url.setScheme("http");
+
+    //loadを実行するとloadProgress()シグナルが自動送信される
+    //loadStarted()シグナル、loadFinished()シグナルも重要
     webview->page()->load(url);
 }
 
