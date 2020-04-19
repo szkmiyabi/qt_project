@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 **
 ** Copyright (C) 2016 The Qt Company Ltd.
 ** Contact: https://www.qt.io/licensing/
@@ -121,6 +121,11 @@ void WebPage::handleAuthenticationRequired(const QUrl &requestUrl, QAuthenticato
     QWidget *mainWindow = view()->window();
     QDialog dialog(mainWindow);
     dialog.setModal(true);
+    //ウィンドウの右上の？ボタンを消す
+    //ウィンドウフラグから Qt::WindowContextHelpButtonHint を除去。
+    //Qt::WindowFlags flags = windowFlags();
+    //flags &= ~Qt::WindowContextHelpButtonHint;
+    //setWindowFlags(flags);
     dialog.setWindowFlags(dialog.windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     Ui::PasswordDialog passwordDialog;
