@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtWebEngineWidgets/QtWebEngineWidgets>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,6 +28,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    QWebEngineView *webview; //QWebEngineインスタンス
+
     QVector<QVector<QString>> url_arr;   //結果格納配列
     int arr_index;                       //配列カウンタ
 
@@ -42,6 +45,8 @@ private:
     void browse_prev();
     //次のURL
     void browse_next();
+    //ページをロード
+    void load_url();
 
 
 };

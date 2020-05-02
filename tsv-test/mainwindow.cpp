@@ -12,6 +12,13 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //webEngineのセットアップ
+    webview = new QWebEngineView;
+    ui->horizontalLayout_2->addWidget(webview);
+
+    load_url();
+
 }
 
 MainWindow::~MainWindow()
@@ -19,29 +26,45 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+//ページをロード
+void MainWindow::load_url()
+{
+    QString url;
+    if(url_arr.size() == 0) {
+        url = "https://google.co.jp/";
+    } else {
+        url = ui->lineEdit->text();
+    }
+    webview->page()->load(url);
+}
+
 //pushButtonクリック
 void MainWindow::on_pushButton_clicked()
 {
     read_tsv_file();
     end_open();
+    load_url();
 }
 
 //Combobox値変更
 void MainWindow::on_comboBox_currentIndexChanged(int index)
 {
     browse_by_urlcombo(index);
+    load_url();
 }
 
 //prevButtonクリック
 void MainWindow::on_prevButton_clicked()
 {
     browse_prev();
+    load_url();
 }
 
 //nextButtonクリック
 void MainWindow::on_nextButton_clicked()
 {
     browse_next();
+    load_url();
 }
 
 
