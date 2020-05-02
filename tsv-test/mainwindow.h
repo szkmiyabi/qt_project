@@ -20,6 +20,9 @@ private slots:
 
     void on_comboBox_currentIndexChanged(int index); //combobox値変更
 
+    void on_prevButton_clicked();   //prevButtonクリック
+
+    void on_nextButton_clicked();   //nextButtonクリック
 
 private:
     Ui::MainWindow *ui;
@@ -27,11 +30,18 @@ private:
     QVector<QVector<QString>> url_arr;   //結果格納配列
     int arr_index;                       //配列カウンタ
 
-    QString get_file_path();           //ファイルパス取得
-    void read_tsv_file();              //TSVファイルの処理
-    void end_open();                    //TSVファイルを開いた後の処理
+    //ファイルパス取得
+    QString get_file_path();
+    //TSVファイルの処理
+    void read_tsv_file();
+    //TSVファイルを開いた後の処理
+    void end_open();
     //Comboboxで選択した項目に切り換える
     void browse_by_urlcombo(const int& idx);
+    //前のURL
+    void browse_prev();
+    //次のURL
+    void browse_next();
 
 
 };

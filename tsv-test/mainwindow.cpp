@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QDebug>
 #include <QTextStream>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -31,6 +32,19 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
     browse_by_urlcombo(index);
 }
 
+//prevButtonクリック
+void MainWindow::on_prevButton_clicked()
+{
+    browse_prev();
+}
+
+//nextButtonクリック
+void MainWindow::on_nextButton_clicked()
+{
+    browse_next();
+}
+
+
 //テキストファイルのパス取得
 QString MainWindow::get_file_path()
 {
@@ -43,7 +57,6 @@ QString MainWindow::get_file_path()
     );
     return  filepath;
 }
-
 
 
 //TSVファイルの処理
@@ -87,6 +100,7 @@ void MainWindow::read_tsv_file()
 
 }
 
+
 //TSVファイルを開いた後の処理
 void MainWindow::end_open()
 {
@@ -111,18 +125,34 @@ void MainWindow::browse_by_urlcombo(const int& idx)
 }
 
 
+//前のURL
+void MainWindow::browse_prev()
+{
+    if(url_arr.size() == 0) return;
+    if(arr_index == 0) {
+        QMessageBox::information(this, tr("Error"), tr(u8"これ以上戻れません"));
+        return;
+    }
+    arr_index--;
+    const QVector<QString> tmp = url_arr.at(arr_index);
+    ui->lineEdit->setText(tmp[1]);
+    ui->comboBox->setCurrentIndex(arr_index);
+
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
+//次のURL
+void MainWindow::browse_next()
+{
+    if(url_arr.size() == 0) return;
+    if(arr_index == (url_arr.size() - 1)) {
+        QMessageBox::information(this, tr("Error"), tr(u8"これ以上進めません"));
+        return;
+    }
+    arr_index++;
+    const QVector<QString> tmp = url_arr.at(arr_index);
+    ui->lineEdit->setText(tmp[1]);
+    ui->comboBox->setCurrentIndex(arr_index);
+}
 
 
