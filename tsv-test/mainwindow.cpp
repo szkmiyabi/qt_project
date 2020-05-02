@@ -22,6 +22,13 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     read_tsv_file();
+    end_open();
+}
+
+//Combobox値変更
+void MainWindow::on_comboBox_currentIndexChanged(int index)
+{
+    browse_by_urlcombo(index);
 }
 
 //テキストファイルのパス取得
@@ -37,11 +44,16 @@ QString MainWindow::get_file_path()
     return  filepath;
 }
 
+
+
 //TSVファイルの処理
 void MainWindow::read_tsv_file()
 {
-    //結果格納ベクタをリセット
-    url_arr.clear();
+    if(url_arr.size() > 0) {
+        url_arr.clear();
+        ui->comboBox->clear();
+    }
+
     //ファイルパス取得
     QString filename = get_file_path();
     if(filename.size() == 0) return;
@@ -74,3 +86,43 @@ void MainWindow::read_tsv_file()
     }
 
 }
+
+//TSVファイルを開いた後の処理
+void MainWindow::end_open()
+{
+    arr_index = 0;
+    foreach(const QVector<QString>& row, url_arr) {
+        ui->comboBox->addItem(row.at(0));
+    }
+    QVector<QString> row = url_arr.at(0);
+    ui->lineEdit->setText(row[1]);
+    ui->comboBox->setCurrentIndex(0);
+}
+
+
+//Comboboxで選択した項目に切り換える
+void MainWindow::browse_by_urlcombo(const int& idx)
+{
+    //TSVファイルを再読み込みした場合スロットが反応するのを阻止
+    if(url_arr.size()==0) return;
+    arr_index = idx;
+    const QVector<QString>& row = url_arr.at(idx);
+    ui->lineEdit->setText(row[1]);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
